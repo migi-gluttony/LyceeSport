@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="shortcut icon" href="../IconsAndImages/ls_no_text.svg" type="image/x-icon">
+        <title>LycéeSport - Login - Administrateur</title>
+        <style>
+            /* Reset browser defaults */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            html,
+            body {
+                height: 100%;
+                font-family: "Arial", sans-serif;
+            }
+
+            .container {
+                display: flex;
+                height: 100%;
+                width: 100%;
+            }
+
+            /* Left and Right sections */
+            .left,
+            .right {
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative; /* To position content correctly */
+            }
+
+            /* Left Section Styling */
+            .left {
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #f5f5f5; /* Light gray background */
+                padding: 20px;
+                text-align: center;
+                height: 100%; /* Ensure the section takes full height */
+                flex-direction: column; /* Allow vertical stacking */
+            }
+
+            /* Content Styling for the Logo */
+            .left .content {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                width: 100%;
+            }
+
+            .left .content img {
+                width: 220px; /* Smaller logo size */
+                height: auto;
+                margin-bottom: 20px; /* Space between image and text */
+            }
+
+            /* Text Styling */
+            .left .content p {
+                font-size: 3.3rem;
+                font-weight: bold;
+                color: #333;
+                line-height: 1.4;
+                margin-top: 50px;
+            }
+
+            /* Right Section Styling */
+            .right {
+                position: relative; /* To add the background image with pseudo-element */
+                flex-direction: column;
+                overflow: hidden;
+            }
+
+            .right::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url("../IconsAndImages/bg.jpg"); /* Replace with your image path */
+                background-size: cover;
+                background-position: center;
+                filter: blur(3px) saturate(0.6); /* Apply blur and reduce saturation */
+                z-index: 0; /* Ensure it stays behind content */
+            }
+
+            .right .login-form {
+                z-index: 1; /* Ensure form is above the background */
+                position: relative;
+                width: 66%;
+                padding: 30px;
+                background: rgba(
+                    255,
+                    255,
+                    255,
+                    0.7
+                ); /* Semi-transparent white background */
+                border-radius: 10px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                backdrop-filter: blur(10px) saturate(1.5); /* Apply blur and enhance colors */
+            }
+
+            .right .input-field {
+                width: 100%;
+                padding: 15px;
+                margin: 10px 0;
+                font-size: 1rem;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background-color: #fff;
+            }
+
+            .right .input-field:focus {
+                outline: none;
+                border-color: #007bff;
+            }
+
+            .right .button {
+                width: 100%;
+                padding: 15px;
+                margin-top: 10px;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 1.2rem;
+                line-height: 50px;
+                font-weight: 600;
+                color: #fafafa;
+                text-transform: uppercase;
+                text-align: center;
+                border: none;
+                border-radius: 10px; /* Rounded corners for a modern look */
+                background: rgba(
+                    0,
+                    123,
+                    255,
+                    0.8
+                ); /* Primary blue background */
+                transition: transform 0.3s, box-shadow 0.3s; /* Smooth interactions */
+                cursor: pointer;
+            }
+
+            .right .button:hover {
+                transform: scale(1.05); /* Slight zoom effect on hover */
+                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <!-- Left Section -->
+            <div class="left">
+                <div class="content">
+                    <img src="../IconsAndImages/ls_no_text.svg" alt="" />
+                    <div class="spacer"></div>
+                    <p>
+                        Espace <br />
+                        Administrateur
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right Section -->
+            <div class="right">
+                <div class="login-form">
+                    <h2>Connectez-vous</h2>
+                    <br />
+                    <p>Email :</p>
+                    <input
+                        type="email"
+                        class="input-field"
+                        placeholder=""
+                        required
+                    />
+                    <p>Mot de passe :</p>
+                    <input
+                        type="password"
+                        class="input-field"
+                        placeholder=""
+                        required
+                    />
+                    <a href="dashboard-admin.html"><button class="button">Se connecter</button></a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

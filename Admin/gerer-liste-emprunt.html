@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="ls_no_text.svg" type="image/x-icon" />
+    <link rel="stylesheet" href="../Commun/sharedstyle-admin.css" />
+    <title>Gestion des emprunts</title>
+    <style>
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1rem;
+            text-align: left;
+        }
+
+        table th, table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .btn-modify {
+            background-color: #2196f3;
+            color: white;
+        }
+
+        .btn-modify:hover {
+            background-color: #1976d2;
+            transform: scale(1.05);
+        }
+
+        .btn-delete {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background-color: #d32f2f;
+            transform: scale(1.05);
+        }
+
+        .btn-add {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .btn-add:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .btn-remove {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        .btn-remove:hover {
+            background-color: #f57c00;
+            transform: scale(1.05);
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #555;
+        }
+
+        /* Main Content Styles */
+        .contenu-central {
+            display: flex;
+            height: 100%;
+            flex-direction: row;
+            padding-right: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .contenu-central .contenu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: start;
+            width: 100%;
+            height: 80%;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <div id="header"></div>
+
+    <!-- Main Content -->
+    <main class="contenu-central">
+        <div id="sidebar"></div>
+        <section id="content" class="contenu">
+            <h1>Gestion des emprunts</h1>
+
+            <!-- Table -->
+<table>
+    <thead>
+        <tr>
+            <th>ID de l'équipement</th>
+            <th>Nom de l'équipement</th>
+            <th>Élève avec emprunt</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Ballon de football</td>
+            <td>Jean Dupont</td>
+            <td>
+                <button class="btn btn-remove" onclick="openModal('remove')">Retirer emprunt</button>
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Raquette de tennis</td>
+            <td>Marie Leclerc</td>
+            <td>
+                <button class="btn btn-remove" onclick="openModal('remove')">Retirer emprunt</button>
+            </td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Ballon de basket</td>
+            <td>David Martin</td>
+            <td>
+                <button class="btn btn-remove" onclick="openModal('remove')">Retirer emprunt</button>
+            </td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Filet de badminton</td>
+            <td>Lucie Bernard</td>
+            <td>
+                <button class="btn btn-remove" onclick="openModal('remove')">Retirer emprunt</button>
+            </td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Raquette de ping-pong</td>
+            <td>Pierre Lefevre</td>
+            <td>
+                <button class="btn btn-remove" onclick="openModal('remove')">Retirer emprunt</button>
+            </td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>Chasuble de football</td>
+            <td>Sophie Rousseau</td>
+            <td>
+                <button class="btn btn-remove" onclick="openModal('remove')">Retirer emprunt</button>
+            </td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Haltères</td>
+            <td>Emilie Durand</td>
+            <td>
+                <button class="btn btn-remove" onclick="openModal('remove')">Retirer emprunt</button>
+            </td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Raquette de squash</td>
+            <td>Thomas Petit</td>
+            <td>
+                <button class="btn btn-remove" onclick="openModal('remove')">Retirer emprunt</button>
+            </td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Patins à roulettes</td>
+            <td>Marie Dufresne</td>
+            <td>
+                <button class="btn btn-remove" onclick="openModal('remove')">Retirer emprunt</button>
+            </td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>Canoë</td>
+            <td>Lucas Martin</td>
+            <td>
+                <button class="btn btn-remove" onclick="openModal('remove')">Retirer emprunt</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <div id="footer"></div>
+
+    <!-- Modals -->
+    <div class="modal" id="modal-remove">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Confirmer la suppression de l'emprunt</h2>
+            <p>Êtes-vous sûr de vouloir retirer l'emprunt de cet équipement ?</p>
+            <button class="btn btn-remove">Retirer l'emprunt</button>
+            <button type="button" class="btn" onclick="closeModal()">Annuler</button>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        function openModal(type) {
+            document.getElementById(`modal-${type}`).style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.querySelectorAll('.modal').forEach((modal) => {
+                modal.style.display = 'none';
+            });
+        }
+         // Function to load an external JS file
+         function loadScript(src, callback) {
+            var script = document.createElement('script');
+            script.src = src; // Path to the JS file
+            script.type = 'text/javascript';
+            script.async = true; // Load asynchronously
+
+            // Once the script is loaded, execute the callback
+            script.onload = function() {
+                console.log(`${src} loaded successfully.`);
+                if (callback) callback();
+            };
+
+            // Handle errors in loading the script
+            script.onerror = function() {
+                console.error(`Error loading the script: ${src}`);
+            };
+
+            // Append the script element to the head of the document
+            document.head.appendChild(script);
+        }
+
+        // Load the shared JavaScript file (this will be common and reusable)
+        loadScript('../Commun/shared-admin.js', function() {
+            // Once shared.js is loaded, you can call its functions
+            loadHTMLInto('content', 'external-content.html');  // Example: Inject HTML into the 'content' div
+        });
+    </script>
+</body>
+</html>

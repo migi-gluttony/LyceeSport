@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="ls_no_text.svg" type="image/x-icon" />
+    <link rel="stylesheet" href="../Commun/sharedstyle-admin.css" />
+    <title>Gestion des listes d'attente</title>
+    <style>
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1rem;
+            text-align: left;
+        }
+
+        table th, table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .btn-view {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .btn-view:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .btn-remove {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        .btn-remove:hover {
+            background-color: #f57c00;
+            transform: scale(1.05);
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #555;
+        }
+
+        /* Main Content Styles */
+        .contenu-central {
+            display: flex;
+            height: 100%;
+            flex-direction: row;
+            padding-right: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .contenu-central .contenu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: start;
+            width: 100%;
+            height: 80%;
+            padding: 20px;
+        }
+
+        /* List styles */
+        #waiting-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <div id="header"></div>
+
+    <!-- Main Content -->
+    <main class="contenu-central">
+        <div id="sidebar"></div>
+        <section id="content" class="contenu">
+            <h1>Gestion des listes d'attente</h1>
+
+            <!-- Table -->
+<table>
+    <thead>
+        <tr>
+            <th>ID de l'équipement</th>
+            <th>Nom de l'équipement</th>
+            <th>Nombre d'élèves dans la liste d'attente</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Ballon de football</td>
+            <td>3</td>
+            <td>
+                <button class="btn btn-view" onclick="openModal('waiting-list', 1)">Voir Liste d'Attente</button>
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Raquette de tennis</td>
+            <td>2</td>
+            <td>
+                <button class="btn btn-view" onclick="openModal('waiting-list', 2)">Voir Liste d'Attente</button>
+            </td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Haltères</td>
+            <td>1</td>
+            <td>
+                <button class="btn btn-view" onclick="openModal('waiting-list', 3)">Voir Liste d'Attente</button>
+            </td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Raquette de badminton</td>
+            <td>4</td>
+            <td>
+                <button class="btn btn-view" onclick="openModal('waiting-list', 4)">Voir Liste d'Attente</button>
+            </td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Ballon de basket</td>
+            <td>2</td>
+            <td>
+                <button class="btn btn-view" onclick="openModal('waiting-list', 5)">Voir Liste d'Attente</button>
+            </td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>Canoë</td>
+            <td>5</td>
+            <td>
+                <button class="btn btn-view" onclick="openModal('waiting-list', 6)">Voir Liste d'Attente</button>
+            </td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Patins à roulettes</td>
+            <td>3</td>
+            <td>
+                <button class="btn btn-view" onclick="openModal('waiting-list', 7)">Voir Liste d'Attente</button>
+            </td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Raquette de ping-pong</td>
+            <td>1</td>
+            <td>
+                <button class="btn btn-view" onclick="openModal('waiting-list', 8)">Voir Liste d'Attente</button>
+            </td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Vélo</td>
+            <td>0</td>
+            <td>
+                <button class="btn btn-view" onclick="openModal('waiting-list', 9)">Voir Liste d'Attente</button>
+            </td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>Gants de boxe</td>
+            <td>6</td>
+            <td>
+                <button class="btn btn-view" onclick="openModal('waiting-list', 10)">Voir Liste d'Attente</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <div id="footer"></div>
+
+    <!-- Modals -->
+    <div class="modal" id="modal-waiting-list">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Liste d'attente pour l'équipement: <span id="equipment-name"></span></h2>
+            <ul id="waiting-list">
+                <!-- List of students will be dynamically added here -->
+            </ul>
+            <button type="button" class="btn" onclick="closeModal()">Annuler</button>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        const waitingLists = {
+            1: ['Ahmed', 'Mohamed', 'Hicham'],
+            2: ['Sara', 'Youssef'],
+            3: ['Ali'],
+            4: ['Karim', 'Amina', 'Sami', 'Hassan'],
+            5: ['Fatima', 'Nour'],
+            6: ['Omar', 'Khalid', 'Lina', 'Rania', 'Imane'],
+            7: ['Anis', 'Rachid', 'Soukaina'],
+            8: ['Zineb'],
+            9: [],
+            10: ['Samir', 'Yasmina', 'Hana', 'Ismail', 'Nada', 'Tariq']
+        };
+
+        function openModal(modalType, equipmentId) {
+            if (modalType === 'waiting-list') {
+                const modal = document.getElementById('modal-waiting-list');
+                const equipmentName = document.getElementById('equipment-name');
+                const waitingList = document.getElementById('waiting-list');
+                equipmentName.textContent = equipmentId === 1 ? 'Ballon de football' : 
+                            equipmentId === 2 ? 'Raquette de tennis' : 
+                            equipmentId === 3 ? 'Haltères' : 
+                            equipmentId === 4 ? 'Raquette de badminton' : 
+                            equipmentId === 5 ? 'Ballon de basket' : 
+                            equipmentId === 6 ? 'Canoë' : 
+                            equipmentId === 7 ? 'Patins à roulettes' : 
+                            equipmentId === 8 ? 'Raquette de ping-pong' : 
+                            equipmentId === 9 ? 'Vélo' : 'Gants de boxe';
+
+                // Clear the current list
+                waitingList.innerHTML = '';
+
+                // Populate the list with student names and their positions
+                waitingLists[equipmentId].forEach((student, index) => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `#${index + 1} ${student} <button class="btn btn-remove" onclick="removeStudentFromList(${equipmentId}, ${index})">Retirer</button>`;
+                    waitingList.appendChild(li);
+                });
+
+                modal.style.display = 'flex';
+            }
+        }
+
+        function closeModal() {
+            document.querySelectorAll('.modal').forEach((modal) => modal.style.display = 'none');
+        }
+
+        function removeStudentFromList(equipmentId, studentIndex) {
+            waitingLists[equipmentId].splice(studentIndex, 1);
+            openModal('waiting-list', equipmentId);  // Refresh the modal
+        }
+        // Function to load an external JS file
+        function loadScript(src, callback) {
+            var script = document.createElement('script');
+            script.src = src; // Path to the JS file
+            script.type = 'text/javascript';
+            script.async = true; // Load asynchronously
+
+            // Once the script is loaded, execute the callback
+            script.onload = function() {
+                console.log(`${src} loaded successfully.`);
+                if (callback) callback();
+            };
+
+            // Handle errors in loading the script
+            script.onerror = function() {
+                console.error(`Error loading the script: ${src}`);
+            };
+
+            // Append the script element to the head of the document
+            document.head.appendChild(script);
+        }
+
+        // Load the shared JavaScript file (this will be common and reusable)
+        loadScript('../Commun/shared-admin.js', function() {
+            // Once shared.js is loaded, you can call its functions
+            loadHTMLInto('content', 'external-content.html');  // Example: Inject HTML into the 'content' div
+        });
+    </script>
+</body>
+</html>

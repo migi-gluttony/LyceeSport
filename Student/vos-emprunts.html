@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="shortcut icon" href="../IconsAndImages/ls_no_text.svg" type="image/x-icon" />
+        <link rel="stylesheet" href="../Commun/sharedstyle.css">
+        <title>Vos emprunts</title>
+        <style>
+            /* Main Content Styles */
+            .contenu-central {
+                display: flex;
+                height: 100%;
+                flex-direction: row;
+                padding-right: 20px;
+                transition: margin-left 0.3s ease;
+            }
+
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 20px;
+                color: #333;
+            }
+
+            .contenu-central .contenu {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: start;
+                width: 100%;
+                height: 80%;
+                padding: 20px;
+            }
+
+            .table-container {
+                overflow-x: auto;
+                background: white;
+                border-radius: 0.5rem;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                width: 90%;
+                max-width: 1000px;
+                margin-top: 20px;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                background: white;
+            }
+
+            th {
+                background-color: #f3f4f6;
+                padding: 0.75rem 1rem;
+                text-align: left;
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                color: #6b7280;
+                font-weight: 500;
+            }
+
+            td {
+                padding: 1rem;
+                border-bottom: 1px solid #e5e7eb;
+            }
+
+            tr:hover {
+                background: #f9fafb;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 6px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: transform 0.2s, background-color 0.2s;
+            }
+
+            .btn-emprunter {
+                background-color: #4caf50;
+                color: white;
+            }
+
+            .btn-emprunter:hover {
+                background-color: #45a049;
+                transform: scale(1.05);
+            }
+
+            .btn-details {
+                background-color: #2196f3;
+                color: white;
+            }
+
+            .btn-details:hover {
+                background-color: #1976d2;
+                transform: scale(1.05);
+            }
+            .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background-color: white;
+        padding: 30px 60px 30px 30px;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 600px;
+        position: relative;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        font-size: 28px;
+        cursor: pointer;
+        color: #555;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 8px;
+        color: #333;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 16px;
+    }
+
+    .readonly-input {
+        background-color: #f5f5f5;
+        color: #666;
+        border: 1px solid #ccc;
+    }
+
+    
+        </style>
+    </head>
+    <body>
+        <div id="header"></div>
+
+        <!-- Main Content -->
+        <main class="contenu-central">
+            <!-- Sidebar -->
+            <div id="sidebar"></div>
+            <main class="contenu">
+                <h1>Vos emprunts</h1>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nom</th>
+                                <th>Date et duree d'emprunt</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>001</td>
+                                <td>Ballon de Football</td>
+                                <td>06/01/25 - 3 jours</td>
+                                <td>
+                                    <button class="btn btn-emprunter">
+                                        Modifier
+                                    </button>
+                                    <button class="btn btn-details">
+                                        Retirer
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>002</td>
+                                <td>Raquette de Tennis</td>
+                                <td>02/01/25 - 1 jour</td>
+                                <td>
+                                    <button class="btn btn-emprunter">
+                                        Modifier
+                                    </button>
+                                    <button class="btn btn-details">
+                                        Retirer
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>003</td>
+                                <td>Maillot de Basketball</td>
+                                <td>01/01/25 - 2 jours</td>
+                                <td>
+                                    <button class="btn btn-emprunter">
+                                        Modifier
+                                    </button>
+                                    <button class="btn btn-details">
+                                        Retirer
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>004</td>
+                                <td>Filet de Volleyball</td>
+                                <td>04/01/25 - 3 jours</td>
+                                <td>
+                                    <button class="btn btn-emprunter">
+                                        Modifier
+                                    </button>
+                                    <button class="btn btn-details">
+                                        Retirer
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </main>
+
+        <div id="footer"></div>
+    <div id="empruntModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h2>Formulaire de modification</h2>
+        <form id="empruntForm">
+        
+            <div class="form-group">
+                <label for="dateEmprunt">Date d'emprunt :</label>
+                <input type="date" id="dateEmprunt" name="dateEmprunt" required />
+            </div>
+
+            <div class="form-group">
+                <label for="duree">Durée (jours) :</label>
+                <input type="number" id="duree" name="duree" min="1" max="3" required />
+            </div>
+
+            <button type="submit" class="btn btn-emprunter">Valider</button>
+        </form>
+    </div>
+</div>
+    </body>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("menu-lateral");
+            menu.classList.toggle("reduit");
+        }
+        document.querySelectorAll(".btn-emprunter").forEach((button) => {
+        button.addEventListener("click", openModal);
+    });
+
+    function openModal() {
+        const modal = document.getElementById("empruntModal");
+        const today = new Date();
+        const maxDate = new Date();
+        maxDate.setDate(today.getDate() + 3);
+
+        document.getElementById("dateEmprunt").min = today
+            .toISOString()
+            .split("T")[0];
+        document.getElementById("dateEmprunt").max = maxDate
+            .toISOString()
+            .split("T")[0];
+
+        modal.style.display = "flex";
+    }
+
+    function closeModal() {
+        const modal = document.getElementById("empruntModal");
+        modal.style.display = "none";
+    }
+
+    document.getElementById("empruntForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        alert("Emprunt validé !");
+        closeModal();
+    });
+     // Function to load an external JS file
+     function loadScript(src, callback) {
+            var script = document.createElement('script');
+            script.src = src; // Path to the JS file
+            script.type = 'text/javascript';
+            script.async = true; // Load asynchronously
+
+            // Once the script is loaded, execute the callback
+            script.onload = function() {
+                console.log(`${src} loaded successfully.`);
+                if (callback) callback();
+            };
+
+            // Handle errors in loading the script
+            script.onerror = function() {
+                console.error(`Error loading the script: ${src}`);
+            };
+
+            // Append the script element to the head of the document
+            document.head.appendChild(script);
+        }
+
+        // Load the shared JavaScript file (this will be common and reusable)
+        loadScript('../Commun/shared.js', function() {
+            // Once shared.js is loaded, you can call its functions
+            loadHTMLInto('content', 'external-content.html');  // Example: Inject HTML into the 'content' div
+        });
+    </script>
+</html>

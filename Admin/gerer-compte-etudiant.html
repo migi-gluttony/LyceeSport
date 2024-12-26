@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="ls_no_text.svg" type="image/x-icon" />
+    <link rel="stylesheet" href="../Commun/sharedstyle-admin.css" />
+    <title>Gestion des comptes</title>
+    <style>
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1rem;
+            text-align: left;
+        }
+
+        table th, table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .btn-modify {
+            background-color: #2196f3;
+            color: white;
+        }
+
+        .btn-modify:hover {
+            background-color: #1976d2;
+            transform: scale(1.05);
+        }
+
+        .btn-delete {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background-color: #d32f2f;
+            transform: scale(1.05);
+        }
+
+        .btn-add {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .btn-add:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #555;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin: 20px 50px 20px 20px ;
+        }
+
+        .form-group label {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4caf50;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .form-group button:hover {
+            background-color: #45a049;
+        }
+
+        /* Main Content Styles */
+        .contenu-central {
+            display: flex;
+            height: 100%;
+            flex-direction: row;
+            padding-right: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .contenu-central .contenu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: start;
+            width: 100%;
+            height: 80%;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <div id="header"></div>
+
+    <!-- Main Content -->
+    <main class="contenu-central">
+        <div id="sidebar"></div>
+        <section id="content" class="contenu">
+            <h1>Gestion des comptes</h1>
+
+            <!-- Table -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Email</th>
+                        <th>Classe</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Existing Rows -->
+                    <tr>
+                        <td>1</td>
+                        <td>Al-Harbi</td>
+                        <td>Abdullah</td>
+                        <td>abdullah.harbi@mail.com</td>
+                        <td>Classe A</td>
+                        <td>
+                            <button class="btn btn-modify" onclick="openModal('edit', 1)">Modifier</button>
+                            <button class="btn btn-delete" onclick="openModal('delete', 1)">Supprimer</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Omar</td>
+                        <td>Yassin</td>
+                        <td>yassin.omar@mail.com</td>
+                        <td>Classe B</td>
+                        <td>
+                            <button class="btn btn-modify" onclick="openModal('edit', 2)">Modifier</button>
+                            <button class="btn btn-delete" onclick="openModal('delete', 2)">Supprimer</button>
+                        </td>
+                    </tr>
+                    <!-- Additional Rows -->
+                    <tr>
+                        <td>3</td>
+                        <td>Al-Saleh</td>
+                        <td>Rami</td>
+                        <td>rami.saleh@mail.com</td>
+                        <td>Classe C</td>
+                        <td>
+                            <button class="btn btn-modify" onclick="openModal('edit', 3)">Modifier</button>
+                            <button class="btn btn-delete" onclick="openModal('delete', 3)">Supprimer</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Al-Mansour</td>
+                        <td>Fatima</td>
+                        <td>fatima.mansour@mail.com</td>
+                        <td>Classe D</td>
+                        <td>
+                            <button class="btn btn-modify" onclick="openModal('edit', 4)">Modifier</button>
+                            <button class="btn btn-delete" onclick="openModal('delete', 4)">Supprimer</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Al-Jabari</td>
+                        <td>Ali</td>
+                        <td>ali.jabari@mail.com</td>
+                        <td>Classe E</td>
+                        <td>
+                            <button class="btn btn-modify" onclick="openModal('edit', 5)">Modifier</button>
+                            <button class="btn btn-delete" onclick="openModal('delete', 5)">Supprimer</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Al-Farsi</td>
+                        <td>Zahra</td>
+                        <td>zahra.farsi@mail.com</td>
+                        <td>Classe F</td>
+                        <td>
+                            <button class="btn btn-modify" onclick="openModal('edit', 6)">Modifier</button>
+                            <button class="btn btn-delete" onclick="openModal('delete', 6)">Supprimer</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Al-Khalid</td>
+                        <td>Ahmed</td>
+                        <td>ahmed.khalid@mail.com</td>
+                        <td>Classe G</td>
+                        <td>
+                            <button class="btn btn-modify" onclick="openModal('edit', 7)">Modifier</button>
+                            <button class="btn btn-delete" onclick="openModal('delete', 7)">Supprimer</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Al-Rashid</td>
+                        <td>Samira</td>
+                        <td>samira.rashid@mail.com</td>
+                        <td>Classe H</td>
+                        <td>
+                            <button class="btn btn-modify" onclick="openModal('edit', 8)">Modifier</button>
+                            <button class="btn btn-delete" onclick="openModal('delete', 8)">Supprimer</button>
+                        </td>
+                    </tr>
+                </tbody>
+                
+            </table>
+
+            <!-- Button to Add Student -->
+            <button class="btn btn-add" onclick="openModal('add')">Ajouter un étudiant</button>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <div id="footer"></div>
+
+    <!-- Modals -->
+    <!-- Add Student Modal -->
+    <div class="modal" id="modal-add">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Ajouter un étudiant</h2>
+            <form id="form-add">
+                <div class="form-group">
+                    <label for="add-name">Nom:</label>
+                    <input type="text" id="add-name" required />
+                </div>
+                <div class="form-group">
+                    <label for="add-prenom">Prénom:</label>
+                    <input type="text" id="add-prenom" required />
+                </div>
+                <div class="form-group">
+                    <label for="add-email">Email:</label>
+                    <input type="email" id="add-email" required />
+                </div>
+                <div class="form-group">
+                    <label for="add-password">Mot de passe:</label>
+                    <input type="password" id="add-password" required />
+                </div>
+                <div class="form-group">
+                    <label for="add-birthdate">Date de naissance:</label>
+                    <input type="date" id="add-birthdate" required />
+                </div>
+                <div class="form-group">
+                    <label for="add-classe">Classe:</label>
+                    <input type="text" id="add-classe" required />
+                </div>
+                <button type="submit" class="btn btn-add">Ajouter</button>
+                <button type="button" class="btn" onclick="closeModal()">Annuler</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Student Modal -->
+    <div class="modal" id="modal-edit">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Modifier un étudiant</h2>
+            <form id="form-edit">
+                <div class="form-group">
+                    <label for="edit-name">Nom:</label>
+                    <input type="text" id="edit-name" required />
+                </div>
+                <div class="form-group">
+                    <label for="edit-prenom">Prénom:</label>
+                    <input type="text" id="edit-prenom" required />
+                </div>
+                <div class="form-group">
+                    <label for="edit-email">Email:</label>
+                    <input type="email" id="edit-email" required />
+                </div>
+                <div class="form-group">
+                    <label for="edit-password">Mot de passe:</label>
+                    <input type="password" id="edit-password" required />
+                </div>
+                <div class="form-group">
+                    <label for="edit-birthdate">Date de naissance:</label>
+                    <input type="date" id="edit-birthdate" required />
+                </div>
+                <div class="form-group">
+                    <label for="edit-classe">Classe:</label>
+                    <input type="text" id="edit-classe" required />
+                </div>
+                <button type="submit" class="btn btn-modify">Enregistrer</button>
+                <button type="button" class="btn" onclick="closeModal()">Annuler</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Student Modal -->
+    <div class="modal" id="modal-delete">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Confirmer la suppression</h2>
+            <p>Êtes-vous sûr de vouloir supprimer cet étudiant ?</p>
+            <button class="btn btn-delete" onclick="deleteStudent()">Supprimer</button>
+            <button type="button" class="btn" onclick="closeModal()">Annuler</button>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        let studentIdToDelete = null;
+
+        function openModal(type, studentId) {
+            if (type === 'add') {
+                document.getElementById('modal-add').style.display = 'flex';
+            } else if (type === 'edit') {
+                // Populate form with student data
+                const student = getStudentById(studentId); // Replace with actual student data
+                document.getElementById('edit-name').value = student.name;
+                document.getElementById('edit-prenom').value = student.prenom;
+                document.getElementById('edit-email').value = student.email;
+                document.getElementById('edit-password').value = student.password;
+                document.getElementById('edit-birthdate').value = student.birthdate;
+                document.getElementById('edit-classe').value = student.classe;
+                document.getElementById('modal-edit').style.display = 'flex';
+            } else if (type === 'delete') {
+                studentIdToDelete = studentId;
+                document.getElementById('modal-delete').style.display = 'flex';
+            }
+        }
+
+        function closeModal() {
+            document.querySelectorAll('.modal').forEach(modal => modal.style.display = 'none');
+        }
+
+        function deleteStudent() {
+            // Implement logic to delete student
+            alert(`Student ${studentIdToDelete} deleted`);
+            closeModal();
+        }
+
+        function getStudentById(id) {
+            // Placeholder logic to get student data. Replace with actual data logic.
+            return {
+                id: id,
+                name: "Mohamed ",
+                prenom: "Elbouchir",
+                email: "mohamed.elbouchir@mail.com",
+                password: "password123",
+                birthdate: "2000-01-01",
+                classe: "Classe A"
+            };
+        }
+        // Function to load an external JS file
+        function loadScript(src, callback) {
+            var script = document.createElement('script');
+            script.src = src; // Path to the JS file
+            script.type = 'text/javascript';
+            script.async = true; // Load asynchronously
+
+            // Once the script is loaded, execute the callback
+            script.onload = function() {
+                console.log(`${src} loaded successfully.`);
+                if (callback) callback();
+            };
+
+            // Handle errors in loading the script
+            script.onerror = function() {
+                console.error(`Error loading the script: ${src}`);
+            };
+
+            // Append the script element to the head of the document
+            document.head.appendChild(script);
+        }
+
+        // Load the shared JavaScript file (this will be common and reusable)
+        loadScript('../Commun/shared-admin.js', function() {
+            // Once shared.js is loaded, you can call its functions
+            loadHTMLInto('content', 'external-content.html');  // Example: Inject HTML into the 'content' div
+        });
+    </script>
+</body>
+</html>
